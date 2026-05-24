@@ -2,6 +2,7 @@ package com.generation.aerolineaapi.controller;
 
 import com.generation.aerolineaapi.model.Vuelo;
 import com.generation.aerolineaapi.service.VueloService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,12 +32,12 @@ public class VueloController {
     }
 
     @PostMapping
-    public ResponseEntity<Vuelo> createVuelo(@RequestBody Vuelo vuelo) {
+    public ResponseEntity<Vuelo> createVuelo(@Valid @RequestBody Vuelo vuelo) {
         return ResponseEntity.status(HttpStatus.CREATED).body(vueloService.save(vuelo));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Vuelo> updateVuelo(@PathVariable Long id, @RequestBody Vuelo datos) {
+    public ResponseEntity<Vuelo> updateVuelo(@PathVariable Long id, @Valid @RequestBody Vuelo datos) {
         Vuelo actualizado = vueloService.update(id, datos);
         if (actualizado == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(actualizado);

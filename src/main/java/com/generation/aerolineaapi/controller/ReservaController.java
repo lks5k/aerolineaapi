@@ -3,6 +3,7 @@ package com.generation.aerolineaapi.controller;
 import com.generation.aerolineaapi.dto.ReservaRequestDTO;
 import com.generation.aerolineaapi.dto.ReservaResponseDTO;
 import com.generation.aerolineaapi.service.ReservaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,13 +35,12 @@ public class ReservaController {
     }
 
     @PostMapping
-    public ResponseEntity<ReservaResponseDTO> createReserva(@RequestBody ReservaRequestDTO dto) {
+    public ResponseEntity<ReservaResponseDTO> createReserva(@Valid @RequestBody ReservaRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(reservaService.save(dto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ReservaResponseDTO> updateReserva(@PathVariable Long id,
-                                                            @RequestBody ReservaRequestDTO dto) {
+    public ResponseEntity<ReservaResponseDTO> updateReserva(@PathVariable Long id, @Valid @RequestBody ReservaRequestDTO dto) {
         ReservaResponseDTO actualizado = reservaService.update(id, dto);
         if (actualizado == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(actualizado);

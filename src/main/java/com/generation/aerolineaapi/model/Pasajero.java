@@ -2,6 +2,8 @@ package com.generation.aerolineaapi.model;
 
 // Trae todas las anotaciones JPA de una sola vez
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity // Le dice a Hibernate esta clase es una tabla en la bd
 @Table(name = "pasajeros") // @Table define el nombre de la tabla como queremos que aparezca, si no se pone toma el nombre de la tabla en minúsculas por defecto
@@ -11,15 +13,20 @@ public class Pasajero {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Esta linea genera el valor del id como incremental
     private Long id;
 
+    @NotBlank(message = "El nombre no puede estar vacío")
     @Column(nullable = false) // Genera el NOT NULL de PostgreSQL en la columna de PostgreSQL. La base de datos lo rechaza antes de guardar.
     private String nombre;
 
+    @NotBlank(message = "El apellido no puede estar vacío")
     @Column(nullable = false)
     private String apellido;
 
+    @NotBlank(message = "El documento es obligatorio")
     @Column(nullable = false)
     private String documento;
 
+    @NotBlank(message = "El email es obligatorio")
+    @Email(message = "El email es obligatorio")
     @Column(nullable = false)
     private String email;
 
