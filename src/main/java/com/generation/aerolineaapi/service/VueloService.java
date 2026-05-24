@@ -22,4 +22,22 @@ public class VueloService {
     public Vuelo save(Vuelo vuelo) {
         return vueloRepository.save(vuelo);
     }
+
+    public Vuelo findById(Long id) {
+        return vueloRepository.findById(id).orElse(null);
+    }
+
+    public Vuelo update(Long id, Vuelo datos) {
+        Vuelo existente = findById(id);
+        if (existente == null) return null;
+        existente.setOrigen(datos.getOrigen());
+        existente.setDestino(datos.getDestino());
+        existente.setFechaHora(datos.getFechaHora());
+        existente.setEstado(datos.getEstado());
+        return vueloRepository.save(existente);
+    }
+
+    public void delete(Long id) {
+        vueloRepository.deleteById(id);
+    }
 }
